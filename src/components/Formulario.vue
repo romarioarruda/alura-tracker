@@ -9,12 +9,6 @@
                     placeholder="Insira uma nova tarefa e aperte Enter" 
                     @keydown.enter="addTask"
                 />
-                <button class="button is-info column" @click="addTask">
-                    <span class="icon">
-                        <i class="fas fa-save"></i>
-                    </span>
-                    <span>Criar</span>
-                </button>
             </div>
         </div>
     </div>
@@ -35,7 +29,7 @@ export default defineComponent({
     data() {
         return {
             task: '',
-            tasks: []
+            tasks: [] as string[]
         }
     },
     methods: {
