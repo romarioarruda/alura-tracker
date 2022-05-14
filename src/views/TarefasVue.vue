@@ -30,13 +30,12 @@ export default defineComponent({
     },
     data() {
         return {
-            task: '',
-            tasks: [] as string[]
+            task: ''
         }
     },
     methods: {
         addTask(): void {
-            this.tasks.push(this.task)
+            this.store.commit('ADD_TAREFA', this.task)
             this.task = ''
         }
     },
@@ -44,6 +43,7 @@ export default defineComponent({
         const store = useStore(key)
 
         return {
+            store,
             tarefas: computed(() => store.state.tarefas)
         }
     }
