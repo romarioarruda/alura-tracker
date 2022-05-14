@@ -10,15 +10,13 @@
       <p class="menu-label color-aside-menu aside-menu-weigth">
         GERAL
       </p>
-      <ul class="menu-list">
-        <li><router-link to="/" class="color-aside-menu aside-menu-weigth">
-          <em class="fa-solid fa-list-check mr-3"></em>
-          Tarefas
-        </router-link></li>
-        <li><router-link to="/projetos" class="color-aside-menu aside-menu-weigth">
-          <em class="fa-solid fa-folder-plus mr-3"></em>
-          Projetos
-        </router-link></li>
+      <ul class="menu-list" v-for="route in routes" :key="route.name">
+        <li>
+          <router-link :to="route.path" class="color-aside-menu aside-menu-weigth">
+            <em class="mr-3" :class="route.icon"></em>
+            {{ route.name}}
+          </router-link>
+        </li>
       </ul>
     </aside>
   </header>
@@ -26,9 +24,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { routes } from '@/routes'
 
 export default defineComponent({
-  name: 'BarraLateral'
+  name: 'BarraLateral',
+  data() {
+    return {
+      routes
+    }
+  }
 })
 </script>
 
