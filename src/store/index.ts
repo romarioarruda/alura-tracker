@@ -15,5 +15,16 @@ export const store = createStore<State>({
         'ADD_TAREFA'(state, tarefa: string) {
             state.tarefas.push(tarefa)
         }
+    },
+    actions: {
+        addTarefa(state, tarefa: string): Promise<void> {
+            if(!tarefa) {
+                return Promise.reject('Preencha o campo descrevendo a tarefa.')
+            }
+
+            state.commit('ADD_TAREFA', tarefa)
+
+            return Promise.resolve()
+        }
     }
 })
