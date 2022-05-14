@@ -14,7 +14,7 @@
         <li>
           <router-link :to="route.path" class="color-aside-menu aside-menu-weigth">
             <em class="mr-3" :class="route.icon"></em>
-            {{ route.name}}
+            {{ route.name }}
           </router-link>
         </li>
       </ul>
