@@ -1,6 +1,26 @@
 <template>
   <header>
-    <h1><img src="@/assets/logo.png" alt="logo alura-tracker"></h1>
+    <h1>
+      <router-link to="/">
+        <img src="@/assets/logo.png" alt="logo alura-tracker">
+      </router-link>
+    </h1>
+    <hr>
+    <aside class="menu">
+      <p class="menu-label color-aside-menu aside-menu-weigth">
+        GERAL
+      </p>
+      <ul class="menu-list">
+        <li><router-link to="/" class="color-aside-menu aside-menu-weigth">
+          <em class="fa-solid fa-list-check mr-3"></em>
+          Tarefas
+        </router-link></li>
+        <li><router-link to="/projetos" class="color-aside-menu aside-menu-weigth">
+          <em class="fa-solid fa-folder-plus mr-3"></em>
+          Projetos
+        </router-link></li>
+      </ul>
+    </aside>
   </header>
 </template>
 
@@ -24,5 +44,21 @@ header {
     padding: 2.5rem;
     height: auto;
   }
+}
+
+.router-link-active {
+  background-color: #175a9a;
+}
+
+.menu-list li a:hover {
+  background-color: #175a9a;
+  color: #fff;
+}
+
+.aside-menu-weigth {
+  font-weight: bold;
+}
+.color-aside-menu {
+  color: #fff;
 }
 </style>
