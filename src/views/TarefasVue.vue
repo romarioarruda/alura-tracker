@@ -13,13 +13,15 @@
         </div>
     </div>
     <div class="box">
-        <TasksList :tasks="tasks"/>
+        <TasksList :tasks="tarefas"/>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import TasksList from '@/components/TasksList.vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
 
 export default defineComponent({
     name: 'TarefasVue',
@@ -36,6 +38,13 @@ export default defineComponent({
         addTask(): void {
             this.tasks.push(this.task)
             this.task = ''
+        }
+    },
+    setup () {
+        const store = useStore(key)
+
+        return {
+            tarefas: computed(() => store.state.tarefas)
         }
     }
 })
