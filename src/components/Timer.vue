@@ -3,13 +3,13 @@
         <CronometroVue :timer="timer" style="margin-right: 15px;"/>
         <button class="button" @click="iniciar" :disabled="cronIsRunning">
             <span class="icon">
-                <i class="fas fa-play"></i>
+                <em class="fas fa-play"></em>
             </span>
             <span>play</span>
         </button>
         <button class="button" @click="finalizar" :disabled="!cronIsRunning">
             <span class="icon">
-                <i class="fas fa-stop"></i>
+                <em class="fas fa-stop"></em>
             </span>
             <span>stop</span>
         </button>

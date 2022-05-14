@@ -19,10 +19,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import TasksList from './TasksList.vue'
+import TasksList from '@/components/TasksList.vue'
 
 export default defineComponent({
-    name: 'FormularioVue',
+    name: 'TarefasVue',
     components: {
         TasksList
     },
