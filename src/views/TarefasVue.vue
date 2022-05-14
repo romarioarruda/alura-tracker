@@ -13,30 +13,37 @@
         </div>
     </div>
     <div class="box">
+        <AlertDanger v-if="messageError" :message="messageError"/>
         <TasksList :tasks="tarefas"/>
     </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
-import TasksList from '@/components/TasksList.vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
+import TasksList from '@/components/TasksList.vue'
+import AlertDanger from '@/components/AlertDanger.vue'
 
 export default defineComponent({
     name: 'TarefasVue',
     components: {
-        TasksList
+        TasksList,
+        AlertDanger
     },
     data() {
         return {
-            task: ''
+            task: '',
+            messageError: ''
         }
     },
     methods: {
-        addTask(): void {
-            this.store.commit('ADD_TAREFA', this.task)
-            this.task = ''
+        async addTask(): Promise<void> {
+            this.store.dispatch('addTarefa', this.task)
+                .then(() => this.task = '')
+                .catch(error => {
+                    this.messageError = error
+                })
         }
     },
     setup () {
