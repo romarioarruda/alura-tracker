@@ -17,14 +17,14 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        addTarefa(state, tarefa: string): Promise<void> {
+        addTarefa(state, tarefa: string): Promise<string> {
             if(!tarefa) {
                 return Promise.reject('Preencha o campo descrevendo a tarefa.')
             }
 
             state.commit('ADD_TAREFA', tarefa)
 
-            return Promise.resolve()
+            return Promise.resolve('Tarefa adicionada na lista.')
         }
     }
 })
