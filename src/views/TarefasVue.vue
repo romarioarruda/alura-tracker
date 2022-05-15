@@ -38,7 +38,7 @@ export default defineComponent({
         }
     },
     methods: {
-        async addTask(): Promise<void> {
+        async addTask(): Promise<any> {
             this.store.dispatch('addTarefa', this.task)
                 .then(() => this.task = '')
                 .catch(error => {
