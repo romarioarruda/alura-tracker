@@ -20,13 +20,15 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import TasksList from '@/components/TasksList.vue'
-import { INotificacao, TipoNotificacao } from '@/interfaces/INotificacao'
+import { TipoNotificacao } from '@/interfaces/INotificacao'
+import { notificacaoMixin } from '@/mixins/notificacaoMixin'
 
 export default defineComponent({
     name: 'TarefasVue',
     components: {
         TasksList
     },
+    mixins: [ notificacaoMixin ],
     data() {
         return {
             task: ''
@@ -42,14 +44,6 @@ export default defineComponent({
                 .catch(error => {
                     this.notificacao('Falha', error, TipoNotificacao.FALHA)
                 })
-        },
-
-        notificacao(titulo: string, texto: string, tipo: TipoNotificacao): void {
-            this.store.commit('ADD_NOTIFICACAO', {
-                titulo,
-                texto,
-                tipo
-            } as INotificacao)
         }
     },
     setup() {
