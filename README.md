@@ -1,4 +1,13 @@
-# alura-tracker
+# task-tracker
+
+**Recursos implementados**:
+
+- Vuex
+- VueRouter
+- Mixins
+- Interfaces
+
+##
 
 ## Project setup
 ```
