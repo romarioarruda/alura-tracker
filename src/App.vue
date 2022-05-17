@@ -4,6 +4,7 @@
       <BarraLateral />
     </div>
     <div class="column is-three-quarter">
+      <NotificacaoVue />
       <router-view />
     </div>
   </main>
@@ -12,11 +13,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BarraLateral from './components/BarraLateral.vue'
+import NotificacaoVue from '@/components/Notificacao.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    BarraLateral
+    BarraLateral,
+    NotificacaoVue
   }
 })
 </script>

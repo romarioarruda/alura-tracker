@@ -1,20 +1,17 @@
 <template>
     <div class="box">
         <div class="columns">
-            <div class="column is-8" role="form" aria-label="Formulário para criação de nova tarefa">
-                <input
-                    v-model="task"
-                    type="text" 
-                    class="input" 
-                    placeholder="Insira uma nova tarefa e aperte Enter" 
-                    @keydown.enter="addTask"
-                />
+            <div style="display: flex;" class="column is-8" role="form"
+                aria-label="Formulário para criação de nova tarefa">
+                <input v-model="task" type="text" class="input"
+                    placeholder="Insira uma nova tarefa e aperte Enter ou clique no botão ao lado"
+                    @keydown.enter="addTask" />
+                <button class="button is-info ml-1" @click="addTask">Adicionar</button>
             </div>
         </div>
     </div>
     <div class="box">
-        <AlertDanger v-if="messageError" :message="messageError"/>
-        <TasksList :tasks="tarefas"/>
+        <TasksList :tasks="tarefas" />
     </div>
 </template>
 
@@ -23,30 +20,39 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import TasksList from '@/components/TasksList.vue'
-import AlertDanger from '@/components/AlertDanger.vue'
+import { INotificacao, TipoNotificacao } from '@/interfaces/INotificacao'
 
 export default defineComponent({
     name: 'TarefasVue',
     components: {
-        TasksList,
-        AlertDanger
+        TasksList
     },
     data() {
         return {
-            task: '',
-            messageError: ''
+            task: ''
         }
     },
     methods: {
         async addTask(): Promise<void> {
             this.store.dispatch('addTarefa', this.task)
-                .then(() => this.task = '')
-                .catch(error => {
-                    this.messageError = error
+                .then(() => {
+                    this.task = ''
+                    this.notificacao('Sucesso', 'Tarefa criada com sucesso!', TipoNotificacao.SUCESSO)
                 })
+                .catch(error => {
+                    this.notificacao('Falha', error, TipoNotificacao.FALHA)
+                })
+        },
+
+        notificacao(titulo: string, texto: string, tipo: TipoNotificacao): void {
+            this.store.commit('ADD_NOTIFICACAO', {
+                titulo,
+                texto,
+                tipo
+            } as INotificacao)
         }
     },
-    setup () {
+    setup() {
         const store = useStore(key)
 
         return {
