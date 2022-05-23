@@ -9,7 +9,15 @@
 
 ##
 
-## Project setup
+## Backend setup
+
+```
+$ json-server --watch db.json
+```
+
+##
+
+## Frontend setup
 ```
 yarn install
 ```
