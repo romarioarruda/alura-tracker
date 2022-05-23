@@ -12,13 +12,13 @@
                     </span>
                 </p>
             </div>
-            <ul v-for="(task, index) in tasks" v-bind:key="index" class="panel-block area-timer-buttons">
-                <li v-bind:key="index">
+            <ul v-for="task in tasks" :key="task?.id" class="panel-block area-timer-buttons">
+                <li :key="task?.id">
                     <a class="panel-block is-active">
                         <span class="panel-icon">
                         <i class="fas fa-book" aria-hidden="true"></i>
                         </span>
-                        {{ task }}
+                        {{ task?.name }}
                     </a>
                 </li>
                 <TimerVue />

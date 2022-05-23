@@ -1,9 +1,11 @@
 import { InjectionKey } from "vue";
 import { createStore, Store } from "vuex";
 import { INotificacao } from "@/interfaces/INotificacao";
+import { ITarefa } from "@/interfaces/ITarefa";
+import http from '@/http'
 
 interface State {
-    tarefas: string[],
+    tarefas: ITarefa[],
     notificacoes: INotificacao[]
 }
 
@@ -15,8 +17,12 @@ export const store = createStore<State>({
         notificacoes: []
     },
     mutations: {
-        'ADD_TAREFA'(state, tarefa: string) {
+        'ADD_TAREFA'(state, tarefa: ITarefa) {
             state.tarefas.push(tarefa)
+        },
+
+        'ADD_TAREFAS'(state, tarefas: ITarefa[]) {
+            state.tarefas = tarefas
         },
 
         'ADD_NOTIFICACAO'(state, notificacao: INotificacao) {
@@ -29,14 +35,22 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        addTarefa(state, tarefa: string): Promise<string> {
+        fetchTarefa(state) {
+            http.get('tarefas').then(resp => {
+                state.commit('ADD_TAREFAS', resp.data)
+            })
+        },
+
+        // eslint-disable-next-line
+        addTarefa(_state, tarefa: string): Promise<any> {
             if(!tarefa) {
                 return Promise.reject('Preencha o campo descrevendo a tarefa.')
             }
 
-            state.commit('ADD_TAREFA', tarefa)
-
-            return Promise.resolve('Tarefa adicionada na lista.')
+            return http.post('tarefas', {
+                id: new Date().getTime(),
+                name: tarefa
+            })
         }
     }
 })

@@ -35,19 +35,21 @@ export default defineComponent({
         }
     },
     methods: {
-        async addTask(): Promise<void> {
-            this.store.dispatch('addTarefa', this.task)
-                .then(() => {
-                    this.task = ''
-                    this.notificacao('Sucesso', 'Tarefa criada com sucesso!', TipoNotificacao.SUCESSO)
-                })
-                .catch(error => {
-                    this.notificacao('Falha', error, TipoNotificacao.FALHA)
-                })
+        async addTask() {
+            try {
+                await this.store.dispatch('addTarefa', this.task)
+                this.task = ''
+                this.notificacao('Sucesso', 'Tarefa criada com sucesso!', TipoNotificacao.SUCESSO)
+                this.store.dispatch('fetchTarefa')
+            } catch(error) {
+                this.notificacao('Falha', String(error), TipoNotificacao.FALHA)
+            }
         }
     },
     setup() {
         const store = useStore(key)
+
+        store.dispatch('fetchTarefa')
 
         return {
             store,
